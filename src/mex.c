@@ -12,7 +12,6 @@ dump_line(const char *line, size_t len)
     const uint8_t BYTE_COUNT = 2;
 
     for (size_t i = 0; i < LINE_LEN; ++i) {
-        /* Add padding if needed */
         if (i < len) {
             printf("%02X", line[i] & 0xFF);
         } else {
