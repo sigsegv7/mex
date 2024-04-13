@@ -13,17 +13,11 @@ dump_line(const char *line, size_t len)
 
     for (size_t i = 0; i < LINE_LEN; ++i) {
         /* Add padding if needed */
-        if (i >= (len*BYTE_COUNT)+1) {
-            printf(" ");
-            continue;
+        if (i < len) {
+            printf("%02X", line[i] & 0xFF);
+        } else {
+            printf("  ");
         }
-
-        if (i >= len) {
-            /* Don't print any more bytes */
-            continue;
-        }
-
-        printf("%02X", line[i] & 0xFF);
         if (((i + 1) % BYTE_COUNT) == 0) {
             printf(" ");
         }
