@@ -55,7 +55,7 @@ dump_file(FILE *fp)
         }
 
         printf("%08X: ", offset);
-        offset += LINE_LEN*2;
+        offset += LINE_LEN;
         dump_line(buf, count);
     }
 
