@@ -46,6 +46,8 @@ dump_line(const char *line, size_t len)
         } else {
             printf("  ");
         }
+
+        /* Put spacing between bytes */
         if (((i + 1) % BYTE_COUNT) == 0) {
             printf(" ");
         }
