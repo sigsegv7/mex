@@ -90,13 +90,28 @@ int
 main(int argc, char **argv)
 {
     FILE *fp;
+    int is_tty;
 
-    if (argc < 2 || argc > 2) {
+    is_tty = isatty(STDIN_FILENO);
+
+    /*
+     * If this is a TTY and we don't have enough args
+     * give back an error.
+     */
+    if ((argc < 2 || argc > 2) && is_tty) {
         printf("Usage: %s <filename>\n", argv[0]);
         return 1;
     }
 
-    fp = fopen(argv[1], "rb");
+    /*
+     * If this is a TTY, open the filename passed
+     * to us, otherwise just use stdin.
+     */
+    if (is_tty) {
+        fp = fopen(argv[1], "rb");
+    } else {
+        fp = stdin;
+    }
 
     if (fp == NULL) {
         perror("fopen");
@@ -104,7 +119,8 @@ main(int argc, char **argv)
     }
 
     dump_file(fp);
-    fclose(fp);
+    if (fp != stdin)
+        fclose(fp);
 
     return 0;
 }
